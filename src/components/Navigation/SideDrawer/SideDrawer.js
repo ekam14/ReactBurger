@@ -15,6 +15,8 @@ const sideDrawer = ( props ) => {
 
   return (
     <Aux>
+      // show - false or true
+      // closed - function to close the sideDrawer in parent component
       <Backdrop show={props.open}  clicked={props.closed}/>
       <div className={attachedClasses.join(' ')} onClick={props.closed}>
         <div className={classes.Logo}>

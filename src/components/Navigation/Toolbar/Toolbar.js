@@ -1,3 +1,6 @@
+// provides the Toolbar
+// links to different pages
+
 import React from 'react';
 
 import classes from './Toolbar.css';
@@ -7,6 +10,7 @@ import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const toolbar = ( props ) => {
   return (
+    // will only be seen when in mobile view
     <header className={classes.Toolbar}>
         <DrawerToggle clicked={props.drawerToggleClicked}/>
         <div className={classes.Logo}>

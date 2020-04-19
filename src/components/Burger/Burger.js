@@ -1,3 +1,5 @@
+// gives us the burger 
+
 import React from 'react';
 
 import classes from './Burger.css';

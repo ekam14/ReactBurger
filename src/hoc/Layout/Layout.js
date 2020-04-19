@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 
 import Aux from '../Auxillary/Auxillary';
@@ -8,42 +8,44 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 // Layout all contains the toolbar which has home, burger logo and other links
 
-class Layout extends Component{
-  state = {
-    showSideDrawer: false
+const layout = (props) => {
+  // using react hooks for state management
+  const [sideDrawerVisible, setSideDrawerVisible] = useState(false);
+
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerVisible(false);
+    //this.setState({showSideDrawer: false})
   }
 
-  sideDrawerClosedHandler = () => {
-    this.setState({showSideDrawer: false})
-  }
-
-  sideDrawerToggleHandler = () => {
-    this.setState((prevState) => {
+  const sideDrawerToggleHandler = () => {
+    /*this.setState((prevState) => {
       return {showSideDrawer: !prevState.showSideDrawer};
-    })
+    })*/
+    setSideDrawerVisible(!sideDrawerVisible);
   }
 
-  render(){
-    return (
-      <Aux>
-        <SideDrawer open={this.state.showSideDrawer}
-         isAuth={this.props.isAuthenticated}
-         closed={this.sideDrawerClosedHandler} />
-        <Toolbar
-          isAuth={this.props.isAuthenticated}
-          drawerToggleClicked={this.sideDrawerToggleHandler}/>
-        <main className={classes.Content}>
-          {this.props.children}
-        </main>
-      </Aux>
-    );
-  }
+  // aux used as a encloser
+
+  return (
+    <Aux>
+      <SideDrawer open={sideDrawerVisible}
+       isAuth={props.isAuthenticated}
+       closed={sideDrawerClosedHandler} />
+      <Toolbar
+        isAuth={props.isAuthenticated}
+        drawerToggleClicked={sideDrawerToggleHandler}/>
+      <main className={classes.Content}>
+        {props.children}
+      </main>
+    </Aux>
+  );
 }
 
+// maps global state to props
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null
   };
 }
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(layout);
